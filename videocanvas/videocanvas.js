@@ -18,7 +18,8 @@ window.onload = function() {
 /*	var botonPausa = document.getElementById("pausa");
 	botonPausa.addEventListener("pause",presionar,false);
 	var botonCiFic = document.getElementById("cienciaficción");
-	botonCiFic.onclick = cambiarEfecto;*/
+	botonCiFic.onclick = cambiarEfecto;
+	var botonRotar = document.getElemtById("rotar");*/
 	
 }
 
