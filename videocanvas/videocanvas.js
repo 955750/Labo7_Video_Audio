@@ -1,5 +1,6 @@
 var efecto = null;
 var clip = "video/demovideo1"; // nombre del vídeo, sin extensión
+//var reproducir=true;
 
 window.onload = function() {
 
@@ -7,21 +8,28 @@ window.onload = function() {
 	var botonByN = document.getElementById("byn");
 	botonByN.onclick = cambiarEfecto;
 	var botonNormal = document.getElementById("normal");
-	botonNormal.onclick = cambiarEfecto;
-				
+	botonNormal.onclick = cambiarEfecto;		
 	video.addEventListener("play", procesarFrame, false);
-	
+
 	video.src = clip + getFormatExtension();
 	video.load();
 	video.play();
+
+/*	var botonPausa = document.getElementById("pausa");
+	botonPausa.addEventListener("pause",presionar,false);
+	var botonCiFic = document.getElementById("cienciaficción");
+	botonCiFic.onclick = cambiarEfecto;*/
 	
 }
+
 
 function cambiarEfecto(e){
 	var id = e.target.getAttribute("id");
 	if ( id == "byn" ){
 		efecto = byn;
-	} else {
+	}/*if (id=="cienciaficción"){
+		efecto = scifi;
+	}*/  else {
 		efecto = null;
 	}
 }
@@ -39,13 +47,33 @@ function getFormatExtension() {
 	} 
 }
 
+/*function presionar(){
+	if (video.paused){
+		reproducir = true;
+		video.play();
+	}else{
+		reproducir = false;
+		video.pause();
+	}
+}
+*/
+
+
+function scifi(pos, r, g, b, data) {
+	var offset = pos * 4;
+	data[offset] = Math.round(255 - r);
+	data[offset+1] = Math.round(255 - g) ;
+	data[offset+2] = Math.round(255 - b) ;
+}
+	
 
 function procesarFrame(e) {
 	var video = document.getElementById("video");
 
 	if (video.paused || video.ended) {
 		return;
-	}
+	} 
+
 
 	var bufferCanvas = document.getElementById("buffer");
 	var displayCanvas = document.getElementById("display");
