@@ -1,5 +1,6 @@
 var efecto = null;
 var clip = "video/demovideo1"; // nombre del vídeo, sin extensión
+var rotar = false;
 
 window.onload = function() {
 
@@ -24,7 +25,11 @@ window.onload = function() {
 	}
 	var botonCiFic = document.getElementById("cienciaficción");
 	botonCiFic.onclick = cambiarEfecto;
-	/* var botonRotar = document.getElemtById("rotar");*/
+	var botonRotar = document.getElementById("rotar");
+	//botonRotar.onclick = rotate;
+	botonRotar.onclick = function () {
+		rotar = true;
+	}
 	
 }
 
@@ -59,44 +64,26 @@ function scifi(pos, r, g, b, data) {
 	data[offset+2] = Math.round(255 - b) ;
 }
 
-function rotate() {
-
-	// Clear the canvas
-	context.clearRect(0, 0, canvasWidth, canvasHeight);
-
-	// Move registration point to the center of the canvas
-	context.translate(canvasWidth/2, canvasWidth/2);
-
-	// Rotate 1 degree
-	context.rotate(Math.PI / 180);
-
-	// Move registration point back to the top left corner of canvas
-	context.translate(-canvasWidth/2, -canvasWidth/2);
-
-	context.fillStyle = "red";
-	context.fillRect(canvasWidth/4, canvasWidth/4, canvasWidth/2, canvasHeight/4);
-	context.fillStyle = "blue";
-	context.fillRect(canvasWidth/4, canvasWidth/2, canvasWidth/2, canvasHeight/4);
-}
-
-setInterval(rotate, 100);
-	
-
 function procesarFrame(e) {
 	var video = document.getElementById("video");
 
 	if (video.paused || video.ended) {
 		return;
-	} 
-
+	}
 
 	var bufferCanvas = document.getElementById("buffer");
 	var displayCanvas = document.getElementById("display");
 	var buffer = bufferCanvas.getContext("2d");
 	var display = displayCanvas.getContext("2d");
 
+
+	if (rotar) {
+		rotate(bufferCanvas, buffer);
+	}
+
 	buffer.drawImage(video, 0, 0, bufferCanvas.width, bufferCanvas.height);
 	var frame = buffer.getImageData(0, 0, bufferCanvas.width, bufferCanvas.height);
+
 	var length = frame.data.length / 4;
 
 	for (var i = 0; i < length; i++) {
@@ -107,6 +94,7 @@ function procesarFrame(e) {
 			efecto(i, r, g, b, frame.data);
 		}
 	}
+
 	display.putImageData(frame, 0, 0);
 
 	setTimeout(procesarFrame, 0);
@@ -114,6 +102,18 @@ function procesarFrame(e) {
 	// requestAnimationFrame(procesarFrame);
 
 }
+
+function rotate(bufferCanvas, buffer) {
+	// Move registration point to the center of the canvas
+	buffer.translate(bufferCanvas.width/2, bufferCanvas.height/2);
+
+	// Rotate 1 degree
+	buffer.rotate(Math.PI / 180);
+
+	// Move registration point back to the top left corner of canvas
+	buffer.translate(-bufferCanvas.width/2, -bufferCanvas.height/2);
+}
+
 
 function byn(pos, r, g, b, data) {
 	var gris = (r+g+b)/3;
