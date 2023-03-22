@@ -1,6 +1,5 @@
 var efecto = null;
 var clip = "video/demovideo1"; // nombre del vídeo, sin extensión
-//var reproducir=true;
 
 window.onload = function() {
 
@@ -15,22 +14,27 @@ window.onload = function() {
 	video.load();
 	video.play();
 
-/*	var botonPausa = document.getElementById("pausa");
-	botonPausa.addEventListener("pause",presionar,false);
+	var botonPausa = document.getElementById("pausa");
+	botonPausa.onclick = function () {
+		if (video.paused){
+			video.play();
+		} else {
+			video.pause();
+		}
+	}
 	var botonCiFic = document.getElementById("cienciaficción");
 	botonCiFic.onclick = cambiarEfecto;
-	var botonRotar = document.getElemtById("rotar");*/
+	/* var botonRotar = document.getElemtById("rotar");*/
 	
 }
-
 
 function cambiarEfecto(e){
 	var id = e.target.getAttribute("id");
 	if ( id == "byn" ){
 		efecto = byn;
-	}/*if (id=="cienciaficción"){
+	} else if ( id == "cienciaficción" ){
 		efecto = scifi;
-	}*/  else {
+	}  else {
 		efecto = null;
 	}
 }
@@ -48,24 +52,34 @@ function getFormatExtension() {
 	} 
 }
 
-/*function presionar(){
-	if (video.paused){
-		reproducir = true;
-		video.play();
-	}else{
-		reproducir = false;
-		video.pause();
-	}
-}
-*/
-
-
 function scifi(pos, r, g, b, data) {
 	var offset = pos * 4;
 	data[offset] = Math.round(255 - r);
 	data[offset+1] = Math.round(255 - g) ;
 	data[offset+2] = Math.round(255 - b) ;
 }
+
+function rotate() {
+
+	// Clear the canvas
+	context.clearRect(0, 0, canvasWidth, canvasHeight);
+
+	// Move registration point to the center of the canvas
+	context.translate(canvasWidth/2, canvasWidth/2);
+
+	// Rotate 1 degree
+	context.rotate(Math.PI / 180);
+
+	// Move registration point back to the top left corner of canvas
+	context.translate(-canvasWidth/2, -canvasWidth/2);
+
+	context.fillStyle = "red";
+	context.fillRect(canvasWidth/4, canvasWidth/4, canvasWidth/2, canvasHeight/4);
+	context.fillStyle = "blue";
+	context.fillRect(canvasWidth/4, canvasWidth/2, canvasWidth/2, canvasHeight/4);
+}
+
+setInterval(rotate, 100);
 	
 
 function procesarFrame(e) {
