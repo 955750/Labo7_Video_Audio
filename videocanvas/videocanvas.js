@@ -1,6 +1,7 @@
 var efecto = null;
 var clip = "video/demovideo1"; // nombre del vídeo, sin extensión
 var rotar = false;
+var cambiarEf= true;
 
 window.onload = function() {
 
@@ -30,11 +31,22 @@ window.onload = function() {
 	botonRotar.onclick = function () {
 		rotar = true;
 	}
-	
+
+	/*var botonMusica= document.getElementById("play");
+	botonMusica.onclick= require("./loadAudio.js");*/
+
+	/*var botonPip = document.getElementById("pip");
+	botonPip.onclick = ('click', async function () {
+		botonPip.disabled = true;
+	  	cambiarEf=false;
+		await video.requestPictureInPicture(); //aqui me da error
+		botonPip.disabled = false;
+	  });*/
 }
 
 function cambiarEfecto(e){
 	var id = e.target.getAttribute("id");
+	//if (cambiarEf){
 	if ( id == "byn" ){
 		efecto = byn;
 	} else if ( id == "cienciaficción" ){
@@ -42,6 +54,7 @@ function cambiarEfecto(e){
 	}  else {
 		efecto = null;
 	}
+	//}
 }
 
 function getFormatExtension() {
@@ -122,4 +135,3 @@ function byn(pos, r, g, b, data) {
 	data[pos * 4 + 1] = gris;
 	data[pos * 4 + 2] = gris;
 }
-

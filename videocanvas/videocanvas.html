@@ -4,6 +4,7 @@
 <title>Video + Canvas</title>
 <meta charset="utf-8">
 <script src="videocanvas.js"></script>
+<!--script src="loadAudio.js"></script-->
 <link rel="stylesheet" href="videocanvas.css">
 </head>
 <body>
@@ -14,10 +15,11 @@
 	<input type="button" id="pausa" value="Pausa">
 	<input type="button" id="cienciaficción" value="CienciaFicción">
 	<input type="button" id="rotar" value="Rotar">
+	<input type="button" id="play" value="Play">
+	<input type="button" id="pip" value="Pip">	
 </form>
 
 <div id="videoDiv">
-<!--autoplay="" muted="" playsinline="" insertado porque sino denied permision-->
 <video id="video" width="720" height="480"> </video>
 <canvas id="buffer" width="720" height="480"></canvas>
 <canvas id="display" width="720" height="480"></canvas>
