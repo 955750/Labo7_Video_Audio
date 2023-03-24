@@ -4,7 +4,6 @@ function loadAudio(fichero) {
         audio.addEventListener('canplaythrough', () => {
             resolve(audio);
         });
-        audio.src = fichero;
     })
 }
 
