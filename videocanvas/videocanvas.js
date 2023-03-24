@@ -29,6 +29,11 @@ window.onload = function() {
 	botonRotar.onclick = function () {
 		rotar = true;
 	}
+	var botonReproducir = document.getElementById("reproducir");
+	botonReproducir.onclick = function () {
+		loadAudio("../Audio/soundtrack.mp3").then(audio => audio.play());
+		botonReproducir.disabled = true;
+	}
 	var botonPiP = document.getElementById("pip")
 	botonPiP.addEventListener('click', async function () {
 		botonPiP.disabled = true;
@@ -128,5 +133,14 @@ function byn(pos, r, g, b, data) {
 	data[pos * 4 + 0] = gris;
 	data[pos * 4 + 1] = gris;
 	data[pos * 4 + 2] = gris;
+}
+
+function loadAudio(fichero) {
+	return new Promise((resolve) => {
+		const audio = new Audio(fichero);
+		audio.addEventListener('canplaythrough', () => {
+			resolve(audio);
+		});
+	})
 }
 
