@@ -37,9 +37,7 @@ window.onload = function() {
 	var botonPiP = document.getElementById("pip")
 	botonPiP.addEventListener('click', async function () {
 		botonPiP.disabled = true;
-
 		await video.requestPictureInPicture();
-
 		botonPiP.disabled = false;
 	});
 	
