@@ -26,10 +26,17 @@ window.onload = function() {
 	var botonCiFic = document.getElementById("cienciaficción");
 	botonCiFic.onclick = cambiarEfecto;
 	var botonRotar = document.getElementById("rotar");
-	//botonRotar.onclick = rotate;
 	botonRotar.onclick = function () {
 		rotar = true;
 	}
+	var botonPiP = document.getElementById("pip")
+	botonPiP.addEventListener('click', async function () {
+		botonPiP.disabled = true;
+
+		await video.requestPictureInPicture();
+
+		botonPiP.disabled = false;
+	});
 	
 }
 
